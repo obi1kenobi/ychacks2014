@@ -1,0 +1,3 @@
+Constants = {}
+
+module.exports = Constants

@@ -1,0 +1,15 @@
+1. Install heroku toolbelt from https://toolbelt.heroku.com/
+  - our Heroku app domain is http://damp-bastion-4123.herokuapp.com/ | git@heroku.com:damp-bastion-4123.git
+  - only Predrag has push privileges on it for now, deploys go from Predrag's computer
+2. Install Node.js 0.10
+3. Clone repo from https://github.com/obi1kenobi/ychacks2014
+4. Run 'npm install'
+5. Make an account on firebase.com and run 'npm install -g firebase-tools'
+  - our Firebase Hosting domain is https://ychacks.firebaseio.com/
+  - let me know what your firebase account name is and I'll give you permissions on it
+6. Please use this high-level style to avoid empty-looking git commits -- Predrag can help you set up Sublime to auto-follow most of these rules:
+  - use 2 spaces for indentation
+  - use Unix style line endings
+  - lines do not have trailing whitespace
+  - files end in a new line
+  - in Coffeescript, do not use parens in such a way that there are lines with only ')' characters -- prefer omitting the parens in that case
