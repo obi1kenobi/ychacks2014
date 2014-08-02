@@ -1,5 +1,9 @@
 extends layout
 
 block content
+  head
+    script(src='https://cdn.firebase.com/js/client/1.0.18/firebase.js')
+    script(src='https://cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js')
+    script(src='/javascripts/client.js')
   h1= title
   p Welcome to #{title}
