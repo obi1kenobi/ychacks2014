@@ -1,0 +1,9 @@
+{
+  "firebase": "pageapp",
+  "public": "./bin/public",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
