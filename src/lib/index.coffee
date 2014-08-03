@@ -4,7 +4,7 @@ child_process             = require('child_process')
 { firebaseManager }       = require('./firebase')
 client                    = require('./client')
 { constants }             = require('./common')
-opened_apps               = require('./opened_apps')
+opened_apps               = require('./client/opened_apps')
 
 session = null
 pairingCode = null
@@ -36,7 +36,7 @@ startListening = () ->
 startMediaKeyWatcher = () ->
   # Start the media key watcher
   media_watcher_file = __dirname + "/client/scripts/media/send_media_key.py"
-  child_process.execFile media_watcher_file, (err, stdin, stdout) ->
+  child_process.execFile media_watcher_file, (err, stdout, stderr) ->
     if err?
       debug("Error launching media watcher: #{JSON.stringify err}")
     debug("Media watcher stdout: #{stdout}") if stdout?
@@ -67,13 +67,13 @@ script_directory = __dirname + "/client/scripts/"
 
 open_window = (window_name) ->
   command = script_directory + "open_window.sh"
-  child_process.execFile command, [window_name], (err, stdin, stdout) ->
+  child_process.execFile command, [window_name], (err, stdout, stderr) ->
     if err?
       debug("Error opening window #{JSON.stringify err}")
 
 open_chrome_tab = (window_index, tab_index) ->
   command = script_directory + "open_chrome_tab.sh"
-  child_process.execFile command, [window_index, tab_index], (err, stdin, stdout) ->
+  child_process.execFile command, [window_index, tab_index], (err, stdout, stderr) ->
     if err?
       debug("Error setting chrome tab #{JSON.stringify err}")
 
@@ -95,16 +95,18 @@ parse_chrome_tab_info = (chrome_tab_string) ->
   return unfiltered_tabs
 
 setInterval(() ->
-  child_process.execFile script_directory + "get_all_windows.sh", (err, stdin, stdout) ->
+  child_process.execFile script_directory + "get_all_windows.sh", (err, stdout, stderr) ->
     if err?
       debug("Error getting all windows #{JSON.stringify err}")
     unfiltered_window_list = parse_windows_list(stdout)
-    if "Google Chrome" in new_window_list
-      child_process.exectFile script_directory + "get_all_chrome_tabs", (err, stdin, stdout) ->
+    if "Google Chrome" in unfiltered_window_list
+      child_process.execFile script_directory + "get_all_chrome_tabs.sh", (err, stdout, stderr) ->
         if err?
           debug("Error getting chrome tabs")
         unfiltered_chrome_tab_info = parse_chrome_tab_info(stdout)
-        args = opened_apps.get_args(unfiltered_window_list, unfiltered_chrome_tab_info)
+        args = opened_apps.get_apps(unfiltered_window_list, unfiltered_chrome_tab_info)
+        debug args
     else
-      args = opened_apps.get_args(unfiltered_window_list, [])
+      args = opened_apps.get_apps(unfiltered_window_list, [])
+      debug args
 1000)
