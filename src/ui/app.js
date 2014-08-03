@@ -41,10 +41,27 @@ $(function() {
     setTimeout(function(){
       $('.controlset').removeClass('active');
       $('.controlset[data-icon-id="'+icon_index + '"]').addClass('active');
-    }, 200);  
-    
-
+    }, 200);
   });
 
+  // Register callbacks
+  LOGIN.onServerDisconnect(function() {
+    window.location = '/index.html';
+  });
+
+  // TODO(ddoucet): everything needs to start as display:none
+  // and then onAdded, we change it to display:block or whatever
+
+  // TODO(ddoucet): add click handlers for changing current app
+  // TODO(ddoucet): add click handlers to send command
+  var runningApps = [];
+
+  LOGIN.onAddedRunningApp(function(name) {
+    // TODO
+  });
+
+  LOGIN.onRemovedRunningApp(function(name) {
+    // TODO0
+  });
 });
 

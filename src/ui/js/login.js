@@ -52,13 +52,15 @@ $(function() {
   LOGIN.onServerDisconnect = function(cb) {
     sessionRef.on('value', function(snap) {
       if (snap.val() === null) {
+        sessionStorage.removeItem('uid');
+        sessionStorage.removeItem('firebaseToken');
         cb();
       }
     });
   };
 
   LOGIN.setCurrentApp = function(name) {
-    sessionRef.child('current_app').set(name)
+    sessionRef.child('current_app').set(name);
   };
 
   LOGIN.onAddedRunningApp = function(cb) {
