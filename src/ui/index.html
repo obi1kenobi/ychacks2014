@@ -1,10 +1,11 @@
 <!doctype html>
 <html>
 <head>
-  <title>Magic Remote Thing</title>
+  <title>Magic Remote Auth Thing</title>
 
   <script src="js/underscore.js"></script>
   <script src="js/jquery.js"></script>
+  <script src="js/login.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -13,90 +14,35 @@
 
 
   <link rel="stylesheet" type="text/css" href="css/reset.css">
-  <link rel="stylesheet" type="text/css" href="css/app.css">
-  <script src="js/springTo.js"></script>
-  <script src="app.js"></script>
-
+  <link rel="stylesheet" type="text/css" href="css/auth.css">
 </head>
 <body>
 
-<div class="app_icons">
+  <img id="lock" src="img/lock.png"/>
 
-  <div class="app_icon" data-icon-id="0">
-    <img src="img/youtube_icon.png"/></div>
-  <div class="app_icon" data-icon-id="1">
-    <img src="img/facebook_icon.png"/></div>
-  <div class="app_icon" data-icon-id="2">
-    <img src="img/netflix.png"/></div> 
+  <input id="pass" pattern="[0-9]*"  type="number" autofocus/>
 
-  <!--
-  <div class="app_icon" data-icon-id="3">
-    <img src="img/gmail_icon.png"/></div>
-  <div class="app_icon" data-icon-id="4">
-    <img src="img/youtube_icon.png"/></div>
-  <div class="app_icon" data-icon-id="5">
-    <img src="img/gmail_icon.png"/></div>
-
-  -->
-
-</div>
-
-<div class="popovers">
-  <div class="popover">
-    <div class="controlset active" data-icon-id="0">
-
-        <div class="bigbutton button">
-          <img width=136 src="img/play_pause.png"/>
-        </div>
-
-        <div class="halfbutton button">
-          <img width=62 src="img/volume_down.png"/>
-        </div>
-        <div class="halfbutton button">
-          <img width=62 src="img/volume_up.png"/>
-        </div>
-
-    </div>
-
-    <div class="controlset" data-icon-id="1">
-
-        <div class="wide button">
-          <img width=22 src="img/up.png"/>
-        </div>
- 
-
-        <div class="like button">
-          <img height=48 src="img/like2.png"/>   
-        </div>
-
- 
-        <div class="wide button">
-          <img width=22 src="img/down.png"/>
-        </div>
-       
-    </div>
-
-    <div class="controlset active" data-icon-id="2">
-
-        <div class="bigbutton button">
-          <img width=136 src="img/play_pause.png"/>
-        </div>
-
-        <div class="halfbutton button">
-          <img width=62 src="img/volume_down.png"/>
-        </div>
-        <div class="halfbutton button">
-          <img width=62 src="img/volume_up.png"/>
-        </div>
-
-    </div>
+  <div class="submit"> Authenticate </div>
 
 
-  </div>
-</div>
+<script>
 
-<img id="caret" src="img/caret.png"/>
+$('.submit').on("touchstart", function(){
+    $(this).addClass('active');
+});
 
+$('.submit').on("touchend click", function(){
+  $(this).removeClass('active');
+  LOGIN.pair($('#pass').val(), function(err, success) {
+    if (success) {
+      window.location = "/index.html";
+    } else {
+      alert("Wrong pairing code, try again.");
+    }
+  });
+});
+
+</script>
 
 </body>
 </html>
