@@ -1,6 +1,9 @@
 white_apps = [{
   name: 'Spotify',
   title_regex: /^Spotify$/
+}, {
+  name: 'Keynote',
+  title_regex: /^Keynote$/
 }]
 
 white_tabs = [{
@@ -15,9 +18,6 @@ white_tabs = [{
 }, {
   name: 'Facebook',
   url_regex: /facebook\.com/
-}, {
-  name: 'Netflix',
-  url_regex: /netflix.com\/WiPlayer?movieid/
 }]
 
 find = (list, pred) ->
