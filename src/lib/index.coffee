@@ -64,6 +64,12 @@ async.series [
 
 script_directory = __dirname + "/client/scripts/"
 
+open_window = (window_name) ->
+  command = script_directory + "open_window.sh"
+  child_process.execFile command, [window_name], (err, stdin, stdout) ->
+    if err?
+      debug("Error opening window #{JSON.stringify err}")
+
 open_chrome_tab = (window_index, tab_index) ->
   command = script_directory + "open_chrome_tab.sh"
   child_process.execFile command, [window_index, tab_index], (err, stdin, stdout) ->
