@@ -97,6 +97,35 @@ parse_chrome_tab_info = (chrome_tab_string) ->
       tab_url: url_params[2]
   return unfiltered_tabs
 
+get_current_windows = () ->
+  command = script_directory + "get_current_window.sh"
+  child_process.execFile command, (err, stdout, stderr) ->
+    if stdout == 'Google Chrome'
+      command = script_directory + "get_current_chrome_tab.sh"
+      child_process.execFile command, (err, stdout, stderr) ->
+        unfiltered_tab = [
+          window_index: 1
+          tab_index: 1
+          tab_url: stdout
+        ]
+        current_app = opened_apps.get_apps [unfiltered_tab]
+        if current_app is {}
+          # TODO: Change the current app to UNKNOWN
+          return
+        else
+          # TODO: Update the current app to current_app
+          debug "Got the new current app as:" + Object.keys(current_app)[0]
+          return
+    else
+      current_app = opened_apps.get_apps [stdout]
+      if current_app is {}
+        # TODO: Change the current app to UNKNOWN
+        return
+      else
+        # TODO: Update the current app to current_app
+        debug "Got the new current app as:" + Object.keys(current_app)[0]
+        return
+
 setInterval(() ->
   child_process.execFile script_directory + "get_all_windows.sh", (err, stdout, stderr) ->
     if err?
@@ -109,7 +138,9 @@ setInterval(() ->
         unfiltered_chrome_tab_info = parse_chrome_tab_info(stdout)
         args = opened_apps.get_apps(unfiltered_window_list, unfiltered_chrome_tab_info)
         debug args
+        get_current_windows()
     else
       args = opened_apps.get_apps(unfiltered_window_list, [])
       debug args
+      get_current_windows()
 1000)
