@@ -73,6 +73,11 @@ class NativeRunningApp extends RunningApp
   get_firebase_value: () ->
     return 1
 
+to_firebase_dict: (apps) ->
+  dict = {}
+  for app in apps
+    dict[app.get_firebase_key()] = app.get_firebase_value()
+  return dict
 
 module.exports =
   # list of strings, list of {window_index, tab_index, tab_url}
@@ -80,10 +85,4 @@ module.exports =
     native_apps = _filter_and_fetch_apps_from_titles(app_titles)
     tab_apps = _filter_and_fetch_tabs(tab_objects)
 
-    return native_apps.concat(tab_apps)
-
-  to_firebase_dict: (apps) ->
-    dict = {}
-    for app in apps
-      dict[app.get_firebase_key()] = app.get_firebase_value()
-    return dict
+    return to_firebase_dict(native_apps.concat(tab_apps))
