@@ -25,7 +25,7 @@ $(function() {
   /* cb(err, uid) */
   LOGIN.auth = function(cb) {
     rootRef.auth(sessionStorage.firebaseToken, function(err, user) {
-      if (err !== undefined) {
+      if (err) {
         console.log("Error on auth: ", err);
         cb(err);
       } else {
