@@ -1,9 +1,4 @@
-firebase                       = require('firebase')
-debug                          = require('debug')('firebase:index')
-{ config, constants }          = require('../common')
+Firebase =
+  firebaseManager: require('./firebaseManager')
 
-FirebaseManager =
-  rootRef: new Firebase(constants.FIREBASE)
-
-
-module.exports = FirebaseManager(constants.FIREBASE)
+module.exports = Firebase
