@@ -33,3 +33,5 @@ child_process.execFile media_watcher_file, (err, stdin, stdout) ->
   if err?
     debug("Error launching media watcher: #{JSON.stringify err}")
   debug("Media watcher stdout: #{stdout}") if stdout?
+
+# Retrieve the files open when the client starts
