@@ -96,6 +96,10 @@ $(function() {
       $('.button').on("touchstart", function(){
         $(this).addClass('active');
         $(this).removeClass('finished');
+
+        var type = $(this).attr('data-type');
+        var command = $(this).attr('data-command');
+        alert('type: ' + type + '; command: ' + command);
       });
       $('.button').on("touchend", function(){
         $(this).removeClass('active');
@@ -137,12 +141,6 @@ $(function() {
           $('.controlset').removeClass('active');
           $('.controlset[data-icon-id="'+icon_index + '"]').addClass('active');
         //}, 200);
-      });
-
-      $('.app-button').on('touchstart', function() {
-        var type = $(this).attr('data-type');
-        var command = $(this).attr('data-command');
-        alert('type: ' + type + '; command: ' + command);
       });
     }
   });
