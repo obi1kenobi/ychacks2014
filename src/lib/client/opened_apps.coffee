@@ -20,56 +20,54 @@ white_tabs = [{
   url_regex: /netflix.com\/WiPlayer?movieid/
 }]
 
-list_contains = (list, pred) ->
+find = (list, pred) ->
   for x in list
     if pred x
-      return true
-  return false
+      return x
+  return null
 
 _filter_and_fetch_apps_from_titles = (app_titles) ->
-  filtered = (title for title in app_titles \
-    if title and list_contains white_apps, (app) -> title.match(app.title_regex))
+  apps = (find(white_apps, (app) -> title.match(app.title_regex)?) \
+    for title in app_titles)
+  filtered = (app for app in apps when app?)
 
   if filtered
-    return (NativeRunningApp(title) for title in filtered)
+    return (new NativeRunningApp(app.name) for app in filtered)
   else
     return []
 
 _filter_and_fetch_tabs = (tab_objects) ->
   chrome_app_from_string = (obj) ->
-    return ChromeRunningApp(obj.window_index, obj.tab_index, obj.tab_url)
+    return new ChromeRunningApp(obj.window_index, obj.tab_index, obj.tab_url)
 
-  return (chrome_app_from_string(tab_obj) for tab_obj in tab_objects \
-    if tab_obj and list_contains white_tabs, (app) -> tab_obj.tab_url.match(app.url_regex))
+  tabs = ({tab_object: tab_obj, tab: \
+      find(white_tabs, (tab) -> tab_obj.tab_url.match(tab.url_regex)?) } \
+    for tab_obj in tab_objects)
+  filtered = (tab for tab in tabs when tab.tab?)
+
+  return (new ChromeRunningApp(x.tab_object.window_index, x.tab_object.tab_index, x.tab.name) \
+    for x in filtered)
 
 class RunningApp
   constructor: (@name) ->
-    console.log("Constructing app!")
-    console.log(@name)
 
   activate: () ->
     throw new Error('Not implemented')
 
   equals: (o) -> o? and @name == o.name
 
-class ChromeRunningApp
-  constructor: (@name, @window_index, @tab_index) ->
-    console.log('chrome ctor')
+class ChromeRunningApp extends RunningApp
+  constructor: (@window_index, @tab_index, @name) ->
     super(@name)
 
   activate: () ->
-    console.log("Activating chrome!")
     console.log(@name)
-    console.log(@window_index)
-    console.log(@tab_index)
 
-class NativeRunningApp
+class NativeRunningApp extends RunningApp
   constructor: (@name) ->
-    console.log('native ctor')
     super(@name)
 
   activate: () ->
-    console.log("Activating native!")
     console.log(@name)
 
 # The AppState only considers a list of names, e.g. ['Youtube', 'Spotify', 'Reddit']
@@ -87,5 +85,7 @@ class AppState
 module.exports =
   # list of strings, list of {window_index, tab_index, tab_url}
   get_apps: (app_titles, tab_objects) ->
-    return _filter_and_fetch_apps_from_titles(app_titles) + \
-      _filter_and_fetch_tabs(tab_objects)
+    native_apps = _filter_and_fetch_apps_from_titles(app_titles)
+    tab_apps = _filter_and_fetch_tabs(tab_objects)
+
+    return native_apps.concat(tab_apps)

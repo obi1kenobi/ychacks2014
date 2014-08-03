@@ -22,10 +22,7 @@ apps = x.get_apps(['apple', 'iTunes', 'Spotify'], [{
   tab_url: 'www.reddit.com/r/leagueoflegends'
 }])
 
-console.log("https://youtube.com/http?v=12314".match(/youtube\.com/))
-console.log(apps)
 for app in apps
-  console.log(app)
   app.activate()
 
 Client =
