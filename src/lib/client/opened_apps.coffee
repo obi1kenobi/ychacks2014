@@ -40,6 +40,9 @@ _filter_and_fetch_tabs = (tab_objects) ->
   chrome_app_from_string = (obj) ->
     return new ChromeRunningApp(obj.window_index, obj.tab_index, obj.tab_url)
 
+  if not tabs?
+    return []
+
   tabs = ({tab_object: tab_obj, tab: \
       find(white_tabs, (tab) -> tab_obj.tab_url.match(tab.url_regex)?) } \
     for tab_obj in tab_objects)
