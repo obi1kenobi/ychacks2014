@@ -16,6 +16,8 @@ Constants =
 ###
 Firebase structure
 
+when the server disconnects, it deletes its session node
+
 root (/)
 + 'tokens'
 |-+ <pairing code>
@@ -25,10 +27,10 @@ root (/)
 | |-+ token
 |
 + 'sessions'
-|-+ '-Ijsdfjrnesdf' (push ID)
+|-+ uid
   |-+ <session info>
   |
-  + '-Ifreoijfdslk' (push ID)
+  + uid
   |-+ <session info>
   ...
 

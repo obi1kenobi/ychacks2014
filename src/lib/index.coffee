@@ -26,12 +26,15 @@ getLoginInfo = (cb) ->
       cb(null)
 
 eraseSessionIfExists = (cb) ->
-  firebaseManager.sessionsRef.child(session).set null, cb
+  ref = firebaseManager.sessionsRef.child(session)
+  ref.set null, cb
+  ref.onDisconnect().set(null)
 
 startListening = () ->
-  firebaseManager.eventsRef(session).on 'child_added', (snapshot, prevChild) ->
+  ref = firebaseManager.eventsRef(session)
+  ref.on 'child_added', (snapshot, prevChild) ->
     client.runScript(snapshot.val())
-    firebaseManager.eventsRef(session).child(snapshot.name()).set(null)
+    ref.child(snapshot.name()).set(null)
 
 startMediaKeyWatcher = () ->
   # Start the media key watcher

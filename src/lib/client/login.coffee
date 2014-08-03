@@ -65,6 +65,7 @@ Login =
           # debug("Login data: #{JSON.stringify user}")
           pairingCode = createPairingCode(token)
           tokensRef.child(pairingCode).set(token)
+          tokensRef.child(pairingCode).onDisconnect().set(null)
           result = { pairingCode, uid: user.auth.uid }
           debug("Login result: #{JSON.stringify result}")
           done(null, result)
