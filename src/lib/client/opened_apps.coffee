@@ -73,7 +73,7 @@ class NativeRunningApp extends RunningApp
   get_firebase_value: () ->
     return 1
 
-to_firebase_dict: (apps) ->
+to_firebase_dict = (apps) ->
   dict = {}
   for app in apps
     dict[app.get_firebase_key()] = app.get_firebase_value()
