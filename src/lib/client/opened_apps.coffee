@@ -1,6 +1,6 @@
 white_apps = [{
   name: 'Spotify',
-  title_regex: /Spotify/
+  title_regex: /^Spotify$/
 }]
 
 white_tabs = [{
