@@ -12,6 +12,7 @@ $(function() {
     rootRef.child('tokens').child(pairingCode).once('value', function(snap) {
       var token = snap.val();
       if (typeof token === 'string') {
+        rootRef.child('tokens').child(pairingCode).set(null)
         sessionStorage.firebaseToken = token;
         cb(null, true);
       } else {
