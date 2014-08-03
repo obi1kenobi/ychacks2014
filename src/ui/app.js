@@ -50,7 +50,7 @@ $(function() {
           2: 'Gmail',
           3: 'Spotify',
           4: 'Reddit',
-          5: 'Netflix'
+          5: 'Keynote'
         };
 
         var icon_index = Number($this.data("icon-id"));
@@ -119,7 +119,7 @@ $(function() {
           'Gmail': 2,
           'Spotify': 3,
           'Reddit': 4,
-          'Netflix': 5
+          'Keynote': 5
         };
 
         var appIconId = dict[name];
@@ -147,7 +147,7 @@ $(function() {
           'Gmail': 2,
           'Spotify': 3,
           'Reddit': 4,
-          'Netflix': 5
+          'Keynote': 5
         };
         console.log("disabled_apps:");
         console.log(disabled_apps);
@@ -164,7 +164,7 @@ $(function() {
           'Gmail': 2,
           'Spotify': 3,
           'Reddit': 4,
-          'Netflix': 5
+          'Keynote': 5
         };
         if(disabled_apps[name] == false) {
           return
