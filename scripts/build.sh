@@ -18,6 +18,7 @@ cp -r ./src/public ./bin/public
 cp -r ./src/views  ./bin/views
 mkdir -p ./bin/lib/client
 cp -r ./src/lib/client/scripts ./bin/lib/client/scripts
+chmod -R +x ./bin/lib/client/scripts
 mkdir ./bin/routes
 
 # compile with source maps

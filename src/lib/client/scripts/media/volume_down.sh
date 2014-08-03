@@ -1,2 +1,5 @@
 #! /bin/bash
-osascript -e 'set volume output volume (get (output volume of (get volume settings)) - 5)'
+touch voldown
+while [ -e 'voldown' ]; do
+    sleep 0.01
+done
