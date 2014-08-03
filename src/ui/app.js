@@ -1,7 +1,7 @@
 /* app.js */
 
 
-var icon_offset = 0;
+var current_icon = 0;
 
 $(function() {
 
@@ -27,8 +27,10 @@ $(function() {
   $app_icon.on("touchend", function(){
 
     var icon_index = Number($(this).data("icon-id"));
-    var new_icon_offset = -93*icon_index;
 
+    if (icon_index == current_icon){
+      $('.popovers').toggleClass('active');
+    }
 
     $(this).addClass('shrink');
     $(this).removeClass('grow');

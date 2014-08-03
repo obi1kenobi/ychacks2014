@@ -1,0 +1,50 @@
+/* auth.css */
+
+body{
+  background-color: #44494F;
+  text-align: center;
+  padding: 20px;
+}
+
+#lock{
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#pass{
+	width: 100%;
+	display: block;
+	border: none;
+	border-radius: 8px;
+	outline: none;
+	font-size: 28px;
+	font-family: helvetica, arial, sans-serif;
+	padding: 20px 30px;
+	letter-spacing: 8px;
+
+}
+
+.submit{
+	cursor: pointer;
+	margin-top: 15px;
+	padding: 20px;
+	background-color: #838C98;
+	background: -webkit-linear-gradient(top, #838C98, #5B6470);
+	border: 1px solid #2A2E34;
+	border-radius: 8px;
+	color: white;
+	font-size: 24px;
+
+	color: #DDD;
+	font-weight: bold;
+	text-shadow: 0 -1px 0 #000;
+
+}
+
+.submit.active{
+	box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+	background: -webkit-linear-gradient(top, #5B6470, #838C98);
+}
