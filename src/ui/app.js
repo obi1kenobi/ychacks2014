@@ -57,7 +57,7 @@ $(function() {
         if ($this.hasClass('grey')) {
           return
         }
-        console.log(dict[icon_index]);
+
         if (dict[icon_index] !== undefined) {
           console.log("Setting to " + dict[icon_index]);
           LOGIN.setCurrentApp(dict[icon_index]);
@@ -124,16 +124,16 @@ $(function() {
 
         var appIconId = dict[name];
 
+        if (appIconId === current_icon) {
+          return;
+        }
+
         if (appIconId === undefined) {
           console.log("Couldn't find app");
           return;
         }
 
-        console.log("Trying to set to " + name);
         var button = $('div.app_icon[data-icon-id=' + appIconId + ']');
-
-        console.log(button);
-
         onAppTouchStart(button);
         onAppTouchEnd(button);
       });
