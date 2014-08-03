@@ -16,7 +16,7 @@ Client =
       logDebug "Script #{type}-#{name} finished."
       return cb?(null)
 
-    path = __dirname + "/#{type}/#{name}.sh"
+    path = __dirname + "/scripts/#{type}/#{name}.sh"
 
     logDebug "About to run script at path #{path}"
 
