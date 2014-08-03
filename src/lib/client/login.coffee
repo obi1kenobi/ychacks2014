@@ -26,12 +26,12 @@ Login =
   ###
   # cb(error, {pairingCode, uid})
   ###
-  loginAndGetInfo: (firebaseName, rootRef, tokensRef, cb) ->
+  loginAndSetPairingCode: (firebaseName, rootRef, tokensRef, cb) ->
     async.waterfall [
       (done) ->
         getAuthToken(firebaseName, done)
       (data, done) ->
-        debug("Auth data: #{JSON.stringify data}")
+        # debug("Auth data: #{JSON.stringify data}")
         token = data.token
         rootRef.auth data.token, (err, user) ->
           # debug("Login data: #{JSON.stringify user}")
@@ -39,8 +39,10 @@ Login =
           tokensRef.child(pairingCode).set(token)
           result = { pairingCode, uid: user.auth.uid }
           debug("Login result: #{JSON.stringify result}")
-          result
+          done(null, result)
     ], cb
 
+  expirePairingCode: (tokensRef, pairingCode) ->
+    tokensRef.child(pairingCode).set(null)
 
 module.exports = Login
