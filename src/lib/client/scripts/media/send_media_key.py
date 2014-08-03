@@ -30,13 +30,13 @@ supportedcmds = {'playpause': NX_KEYTYPE_PLAY, 'next': NX_KEYTYPE_NEXT, 'prev': 
  
 class OnCreatedEventHandler(FileSystemEventHandler):
     def on_created(self, event):
-        command = event.src_path[2:]
+        command = event.src_path[event.src_path.rindex('/') + 1:]
         if command in supportedcmds:
             HIDPostAuxKey(supportedcmds[command])
             try:
                 os.remove(event.src_path)
             except OSError:
-
+                pass
 
 def HIDPostAuxKey(key):
     def doKey(down):
@@ -59,10 +59,11 @@ def HIDPostAuxKey(key):
 if __name__ == "__main__":
     event_handler = OnCreatedEventHandler()
     observer = Observer()
-    observer.schedule(event_handler, './', recursive=False)
+    observer.schedule(event_handler, './', recursive=True)
     observer.start()
     try:
         while True:
+            print "I'm running!"
             time.sleep(1)
     except KeyboardInterrupt:
         observer.stop()
