@@ -37,14 +37,11 @@ _filter_and_fetch_apps_from_titles = (app_titles) ->
     return []
 
 _filter_and_fetch_tabs = (tab_objects) ->
-  chrome_app_from_string = (obj) ->
-    return new ChromeRunningApp(obj.window_index, obj.tab_index, obj.tab_url)
-
-  if not tabs?
+  if not tab_objects?
     return []
 
   tabs = ({tab_object: tab_obj, tab: \
-      find(white_tabs, (tab) -> tab_obj.tab_url.match(tab.url_regex)?) } \
+      find(white_tabs, (tab) -> tab_obj? and tab_obj.tab_url.match(tab.url_regex)?) } \
     for tab_obj in tab_objects)
   filtered = (tab for tab in tabs when tab.tab?)
 
