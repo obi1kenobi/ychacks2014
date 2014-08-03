@@ -40,6 +40,9 @@ _filter_and_fetch_tabs = (tab_objects) ->
   chrome_app_from_string = (obj) ->
     return new ChromeRunningApp(obj.window_index, obj.tab_index, obj.tab_url)
 
+  if not tabs?
+    return []
+
   tabs = ({tab_object: tab_obj, tab: \
       find(white_tabs, (tab) -> tab_obj.tab_url.match(tab.url_regex)?) } \
     for tab_obj in tab_objects)
@@ -51,7 +54,10 @@ _filter_and_fetch_tabs = (tab_objects) ->
 class RunningApp
   constructor: (@name) ->
 
-  activate: () ->
+  get_firebase_key: () ->
+    return @name
+
+  get_firebase_value: () ->
     throw new Error('Not implemented')
 
   equals: (o) -> o? and @name == o.name
@@ -60,27 +66,21 @@ class ChromeRunningApp extends RunningApp
   constructor: (@window_index, @tab_index, @name) ->
     super(@name)
 
-  activate: () ->
-    console.log(@name)
+  get_firebase_value: () ->
+    return {@window_index, @tab_index}
 
 class NativeRunningApp extends RunningApp
   constructor: (@name) ->
     super(@name)
 
-  activate: () ->
-    console.log(@name)
+  get_firebase_value: () ->
+    return 1
 
-# The AppState only considers a list of names, e.g. ['Youtube', 'Spotify', 'Reddit']
-# When we scan the list of currently running apps, filter them to get the names and
-# then pass the list of currently running app names to the app state's update_app_state
-# method. It will make db inserts that will cause the mobile app to update.
-class AppState
-  update_app_state: (current_apps) ->
-
-  _on_app_inserted: (app) ->
-
-  _on_app_removed: (app) ->
-
+to_firebase_dict = (apps) ->
+  dict = {}
+  for app in apps
+    dict[app.get_firebase_key()] = app.get_firebase_value()
+  return dict
 
 module.exports =
   # list of strings, list of {window_index, tab_index, tab_url}
@@ -88,4 +88,4 @@ module.exports =
     native_apps = _filter_and_fetch_apps_from_titles(app_titles)
     tab_apps = _filter_and_fetch_tabs(tab_objects)
 
-    return native_apps.concat(tab_apps)
+    return to_firebase_dict(native_apps.concat(tab_apps))
