@@ -1,2 +1,4 @@
 #! /bin/bash
-osascript -e 'set volume output volume (get (output volume of (get volume settings)) - 5)'
+osascript -e 'tell application "System Events"
+    key code 73
+end'
