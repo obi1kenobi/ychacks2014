@@ -32,15 +32,14 @@ $(function() {
         $(this).addClass('finished');
       });
 
-      $app_icon.on("touchstart", function(){
-        $(this).addClass('grow');
-        $(this).removeClass('shrink');
+      var onAppTouchStart = function($this) {
+        $this.addClass('grow');
+        $this.removeClass('shrink');
         $('.popovers').removeClass('bounce');
-      });
+      }
 
-      $app_icon.on("touchend", function(){
-
-        var icon_index = Number($(this).data("icon-id"));
+      var onAppTouchEnd = function($this) {
+        var icon_index = Number($this.data("icon-id"));
 
         if (icon_index == current_icon || popover_closed==true){
           $('.popovers').toggleClass('active');
@@ -56,8 +55,8 @@ $(function() {
         }
         current_icon = icon_index;
 
-        $(this).addClass('shrink');
-        $(this).removeClass('grow');
+        $this.addClass('shrink');
+        $this.removeClass('grow');
 
         var caretIndex =  (icon_index % 3);
         elementSpringTo("#caret", caretIndex*95 + 45, 150, [50, 10, 2]);
@@ -67,11 +66,35 @@ $(function() {
           $('.controlset').removeClass('active');
           $('.controlset[data-icon-id="'+icon_index + '"]').addClass('active');
         //}, 200);
+      }
+
+      $app_icon.on("touchstart", function() {
+        onAppTouchStart($(this));
+      });
+
+      $app_icon.on("touchend", function() {
+        onAppTouchEnd($(this));
       });
 
       // Register callbacks
       LOGIN.onServerDisconnect(function() {
         window.location = '/index.html';
+      });
+
+      LOGIN.onCurrentAppChanged(function(name) {
+        var appIconId = {
+          'Youtube': 0,
+          'Facebook': 1,
+          'Gmail': 2,
+          'Spotify': 3,
+          'Reddit': 4,
+          'Netflix': 5
+        }[name];
+
+        console.log("Trying to set to " + name);
+        var button = $('div.app_icon[data-icon-id="' + appIconId + '"]');
+        onAppTouchStart(button);
+        onAppTouchEnd(button);
       });
 
       // TODO(ddoucet): everything needs to start as display:none
