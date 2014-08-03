@@ -10,6 +10,7 @@ Constants =
 
   PAIRING_CODE_LENGTH: 6
   PAIRING_CODE_ALGORITHM: 'sha1'
+  PAIRING_CODE_TIME_EXPIRATION: 15000
 
 ###
 Firebase structure
