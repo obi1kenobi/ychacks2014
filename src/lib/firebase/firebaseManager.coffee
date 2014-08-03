@@ -8,7 +8,8 @@ eventsRef = (session) ->
   sessionsRef.child(session).child(constants.EVENTS_CHILD)
 contextRef = (session) ->
   sessionsRef.child(session).child(constants.CONTEXT_CHILD)
+tokensRef = rootRef.child(constants.TOKENS_CHILD)
 
-FirebaseManager = {rootRef, sessionsRef, eventsRef, contextRef}
+FirebaseManager = {rootRef, sessionsRef, eventsRef, contextRef, tokensRef}
 
 module.exports = FirebaseManager

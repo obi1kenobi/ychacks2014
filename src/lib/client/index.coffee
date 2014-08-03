@@ -1,7 +1,7 @@
 child_process = require('child_process')
 
-logDebug      = require('debug')('client:debug')
-logError      = require('debug')('client:error')
+logDebug      = require('debug')('client:index:debug')
+logError      = require('debug')('client:index:error')
 
 Client =
   runScript: ({type, name}, cb) ->

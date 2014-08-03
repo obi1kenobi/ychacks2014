@@ -5,11 +5,22 @@ Constants =
   EVENTS_CHILD: 'events'
   EVENT_TYPE_CHILD: 'type'
   EVENT_NAME_CHILD: 'name'
+  TOKENS_CHILD: 'tokens'
+
+  PAIRING_CODE_LENGTH: 6
+  PAIRING_CODE_ALGORITHM: 'sha1'
 
 ###
 Firebase structure
 
 root (/)
++ 'tokens'
+|-+ <pairing code>
+| |-+ token
+|
+|-+ <pairing code>
+| |-+ token
+|
 + 'sessions'
 |-+ '-Ijsdfjrnesdf' (push ID)
   |-+ <session info>
