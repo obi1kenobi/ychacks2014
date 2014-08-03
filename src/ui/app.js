@@ -149,6 +149,8 @@ $(function() {
           'Reddit': 4,
           'Netflix': 5
         };
+        console.log("disabled_apps:");
+        console.log(disabled_apps);
         if(disabled_apps[name] == undefined || !disabled_apps[name]) {
           disabled_apps[name] = true;
           $('div.app_icon[data-icon-id=' + dict[name] + ']').addClass('grey');
@@ -164,7 +166,7 @@ $(function() {
           'Reddit': 4,
           'Netflix': 5
         };
-        if(disabled_apps[name] == undefined || !disabled_apps[name]) {
+        if(disabled_apps[name] == false) {
           return
         }
         disabled_apps[name] = false;
@@ -172,10 +174,12 @@ $(function() {
       }
 
       LOGIN.onAddedRunningApp(function(name) {
+        console.log("Adding an app" + name);
         enable_app(name)
       });
 
       LOGIN.onRemovedRunningApp(function(name) {
+        console.log("Disabling an app" + name);
         disable_app(name)
       }); 
     }
