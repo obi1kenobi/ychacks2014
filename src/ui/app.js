@@ -24,7 +24,7 @@ $(function() {
 
         var type = $(this).attr('data-type');
         var command = $(this).attr('data-command');
-        alert('type: ' + type + '; command: ' + command);
+        console.log('type: ' + type + '; command: ' + command);
       });
 
       $('.button').on("touchend", function(){
