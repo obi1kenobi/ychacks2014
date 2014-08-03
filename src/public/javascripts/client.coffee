@@ -1,15 +1,37 @@
-firebase = new Firebase('https://pageapp.firebaseio.com/web/data')
+firebase = new Firebase('https://ychacks.firebaseio.com/sessions/test/events/')
 
-auth = new FirebaseSimpleLogin firebase, (error, user) ->
-  if error?
-    # an error occurred while attempting login
-    console.log error
-  else if user?
-    console.log user
-    console.log "User ID: " + user.uid + ", Provider: " + user.provider
+send_command = (type, name) ->
+  firebase.push {type, name}
 
-facebook_auth_ags =
-  rememberMe: true,
-  scope: 'email,user_friends,xmpp_login'
+make_command = (type, name) ->
+  return {type, name}
 
-auth.login 'facebook', facebook_auth_ags
+data = [
+  make_command('facebook', 'like')
+  make_command('gmail', 'archive')
+  make_command('gmail', 'undo')
+  make_command('lists', 'back')
+  make_command('lists', 'down')
+  make_command('lists', 'open')
+  make_command('lists', 'select')
+  make_command('lists', 'up')
+  make_command('media', 'volume_up')
+  make_command('media', 'volume_down')
+  make_command('netflix', 'play')
+  make_command('netflix', 'pause')
+  make_command('reddit', 'upvote')
+  make_command('reddit', 'downvote')
+]
+
+make_command_sender = (command) ->
+  return () ->
+    send_command(command.type, command.name)
+
+for command in data
+  $('#commands')
+    .append(
+      $('<div>')
+        .append(
+          $('<a>')
+            .text(command.type + ': ' + command.name)
+            .click(make_command_sender(command))))
