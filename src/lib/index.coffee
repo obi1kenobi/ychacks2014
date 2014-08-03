@@ -9,6 +9,9 @@ opened_apps               = require('./client/opened_apps')
 session = null
 pairingCode = null
 
+g_current_app_msg = null
+g_current_app_time = null
+
 # cb(err)
 getLoginInfo = (cb) ->
   debug("Generating a new session...")
@@ -50,7 +53,8 @@ startListening = () ->
       if current_app not of all_apps
         debug "Could not find current app (#{current_app}) in all apps"
         return
-
+      g_current_app_msg = current_app
+      g_current_app_time = new Date()
       if all_apps[current_app] != 1
         open_chrome_tab(all_apps[current_app].window_index, all_apps[current_app].tab_index)
       else
@@ -145,8 +149,12 @@ get_current_windows = () ->
           @context_ref.child('current_app').set('UNKNOWN')
           return
         else
+          if g_current_app_msg != null and g_current_app_msg != current_app and \
+              new Date() - g_current_app_time < 4000
+            return
+          g_current_app_msg = null
+          g_current_app_time = null
           @context_ref.child('current_app').set(Object.keys(current_app)[0])
-          return
     else
       current_app = opened_apps.get_apps [stdout], []
       if not Object.keys(current_app).length
