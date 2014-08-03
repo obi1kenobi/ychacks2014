@@ -97,10 +97,19 @@ open_window = (window_name) ->
       debug("Error opening window #{JSON.stringify err}")
 
 open_chrome_tab = (window_index, tab_index) ->
-  command = script_directory + "open_chrome_tab.sh"
-  child_process.execFile command, [window_index, tab_index], (err, stdout, stderr) ->
-    if err?
-      debug("Error setting chrome tab #{JSON.stringify err}")
+  open_tab = (tab_index) ->
+    command = script_directory + "open_chrome_tab.sh"
+    child_process.execFile command, [1, tab_index], (err, stdout, stderr) ->
+      if err?
+        debug("Error setting chrome tab #{JSON.stringify err}")
+  if window_index != 1
+    command = script_directory + "open_chrome_window.sh"
+    child_process.execFile command, [window_index], (err, stdout, stderr) ->
+      if err?
+        debug ("Error setting chrome window #{JSON.stringify err}")
+      open_tab(tab_index)
+  else
+    open_tab(tab_index)
 
 parse_windows_list = (window_string) ->
   unfiltered_windows = window_string.split ", "

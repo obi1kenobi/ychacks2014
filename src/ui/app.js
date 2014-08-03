@@ -17,7 +17,6 @@ $(function() {
       var $app_icon = $('.app_icon');
       var $app_icons = $('.app_icons');
 
-
       $('.button').on("touchstart", function(){
         $(this).addClass('active');
         $(this).removeClass('finished');
@@ -50,19 +49,13 @@ $(function() {
           2: 'Gmail',
           3: 'Spotify',
           4: 'Reddit',
-          5: 'Netflix'
+          5: 'Keynote'
         };
 
         var icon_index = Number($this.data("icon-id"));
         if ($this.hasClass('grey')) {
           return
         }
-
-        if (dict[icon_index] !== undefined) {
-          console.log("Setting to " + dict[icon_index]);
-          LOGIN.setCurrentApp(dict[icon_index]);
-        }
-        console.log(icon_index);
 
         if (icon_index == current_icon || popover_closed==true){
           $('.popovers').toggleClass('active');
@@ -85,10 +78,13 @@ $(function() {
         elementSpringTo("#caret", caretIndex*95 + 45, 150, [50, 10, 2]);
         $('.popovers').addClass('bounce');
 
-        //setTimeout(function(){
-          $('.controlset').removeClass('active');
-          $('.controlset[data-icon-id="'+icon_index + '"]').addClass('active');
-        //}, 200);
+        $('.controlset').removeClass('active');
+        $('.controlset[data-icon-id="'+icon_index + '"]').addClass('active');
+
+        if (dict[icon_index] !== undefined) {
+          console.log("Setting to " + dict[icon_index]);
+          LOGIN.setCurrentApp(dict[icon_index]);
+        }
       }
 
       $app_icon.on("touchstart", function() {
@@ -119,17 +115,21 @@ $(function() {
           'Gmail': 2,
           'Spotify': 3,
           'Reddit': 4,
-          'Netflix': 5
+          'Keynote': 5
         };
 
         var appIconId = dict[name];
 
-        if (appIconId === current_icon) {
-          return;
-        }
+        console.log(current_icon);
+        console.log(appIconId);
 
         if (appIconId === undefined) {
           console.log("Couldn't find app");
+          return;
+        }
+
+        if (appIconId === current_icon) {
+          console.log("Skipping on touch");
           return;
         }
 
@@ -147,7 +147,7 @@ $(function() {
           'Gmail': 2,
           'Spotify': 3,
           'Reddit': 4,
-          'Netflix': 5
+          'Keynote': 5
         };
         console.log("disabled_apps:");
         console.log(disabled_apps);
@@ -164,7 +164,7 @@ $(function() {
           'Gmail': 2,
           'Spotify': 3,
           'Reddit': 4,
-          'Netflix': 5
+          'Keynote': 5
         };
         if(disabled_apps[name] == false) {
           return
