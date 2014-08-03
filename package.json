@@ -35,7 +35,8 @@
     "morgan": "~1.2.2",
     "nconf": "~0.6.9",
     "serve-favicon": "~2.0.1",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "jsonp-client": "~0.5.1"
   },
   "devDependencies": {
     "chai": "*",

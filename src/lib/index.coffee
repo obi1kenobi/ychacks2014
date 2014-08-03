@@ -1,9 +1,25 @@
 debug                     = require('debug')('index')
+child_process             = require('child_process')
 { firebaseManager }       = require('./firebase')
 client                    = require('./client')
-child_process             = require('child_process')
+{ constants }             = require('./common')
 
 session = "test"
+
+debug("Generating a new session...")
+
+getPairingCode = (cb) ->
+  firebaseName = constants.FIREBASE_NAME
+  rootRef = firebaseManager.rootRef
+  tokensRef = firebaseManager.tokensRef
+  client.login.loginAndGetInfo firebaseName, rootRef, tokensRef, (err, info) ->
+    if err?
+      debug("Error when pairing: #{JSON.stringify err}")
+      cb?(err)
+    else
+      console.log "Login info: #{info}"
+      cb?(null, info)
+getPairingCode()
 
 debug("Starting client...")
 
@@ -15,5 +31,5 @@ firebaseManager.eventsRef(session).on 'child_added', (snapshot, prevChild) ->
 media_watcher_file = __dirname + "/client/scripts/media/send_media_key.py"
 child_process.execFile media_watcher_file, (err, stdin, stdout) ->
   if err?
-    console.log err
-  console.log stdout
+    debug("Error launching media watcher: #{JSON.stringify err}")
+  debug("Media watcher stdout: #{stdout}") if stdout?

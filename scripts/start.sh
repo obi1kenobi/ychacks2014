@@ -20,5 +20,4 @@ fi
 echo "Starting $NODE_ENV configuration..."
 echo ""
 
-env "NODE_ENV=$NODE_ENV" node ./bin/index.js &
 env "NODE_ENV=$NODE_ENV" node ./bin/lib/index.js

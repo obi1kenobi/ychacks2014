@@ -1,5 +1,6 @@
 Constants =
-  FIREBASE: 'https://ychacks.firebaseio.com/'
+  FIREBASE_NAME: 'ychacks'
+  FIREBASE: "https://ychacks.firebaseio.com/"
   SESSIONS_CHILD: 'sessions'
   CONTEXT_CHILD: 'context'
   EVENTS_CHILD: 'events'

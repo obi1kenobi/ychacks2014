@@ -5,41 +5,41 @@
 
 async                   = require('async')
 debug                   = require('debug')('client:login')
-JSONP                   = require('./jsonp')
+JSONP                   = require('jsonp-client')
 {constants}             = require('../common')
 crypto                  = require('crypto')
 
 createPairingCode = (token) ->
   sha = crypto.createHash(constants.PAIRING_CODE_ALGORITHM)
-  sha.update(token)
+  sha.update(JSON.stringify token)
   sha.digest('hex').substr(0, constants.PAIRING_CODE_LENGTH)
 
 ###
 # cb(error, {token, user})
 ###
 getAuthToken = (firebaseName, cb) ->
-  args =
-    url: 'https://auth.firebase.com/auth/anonymous',
-    data: {transport: 'jsonp', firebase: firebaseName},
-    success: (data) ->
-      debug("Received auth token payload: #{data}")
-      cb(null, data)
-  JSONP(args)
+  url = "https://auth.firebase.com/auth/anonymous?transport=jsonp&firebase=#{firebaseName}"
+  JSONP url, cb
 
 
 Login =
   ###
-  # cb(error, data)
+  # cb(error, {pairingCode, uid})
   ###
-  loginAndGetToken: (firebaseName, rootRef, tokensRef, cb) ->
+  loginAndGetInfo: (firebaseName, rootRef, tokensRef, cb) ->
     async.waterfall [
-      (done) -> getAuthToken(firebaseName, done)
-      ({token}, done) -> rootRef.auth(token, done)
-      ({token}, done) ->
-        pairingCode = createPairingCode(token)
-        debug("Created pairing code #{pairingCode}")
-        tokensRef.child(pairingCode).set(token)
-        true
+      (done) ->
+        getAuthToken(firebaseName, done)
+      (data, done) ->
+        debug("Auth data: #{JSON.stringify data}")
+        token = data.token
+        rootRef.auth data.token, (err, user) ->
+          # debug("Login data: #{JSON.stringify user}")
+          pairingCode = createPairingCode(token)
+          tokensRef.child(pairingCode).set(token)
+          result = { pairingCode, uid: user.auth.uid }
+          debug("Login result: #{JSON.stringify result}")
+          result
     ], cb
 
 
