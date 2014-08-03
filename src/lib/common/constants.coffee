@@ -33,8 +33,10 @@ root (/)
   ...
 
 session info
-+ 'context'
-|-+ <context type>
++-'active_context'
++-'other_contexts'
+|-+ '-Itgelksjdfds' (push ID)
+| |-+ <context info>
 |
 +-'events'
 |-+ '-Itgelksjdfds' (push ID)
