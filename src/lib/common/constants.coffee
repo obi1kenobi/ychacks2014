@@ -16,7 +16,7 @@ Constants =
 ###
 Firebase structure
 
-when the server disconnects, it deletes its session node
+When the server disconnects, it deletes its session node.
 
 root (/)
 + 'tokens'
