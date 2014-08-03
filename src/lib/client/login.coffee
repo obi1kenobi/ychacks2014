@@ -9,10 +9,38 @@ JSONP                   = require('jsonp-client')
 {constants}             = require('../common')
 crypto                  = require('crypto')
 
+hexValue = (char) ->
+  switch char
+    when '0' then 0
+    when '1' then 1
+    when '2' then 2
+    when '3' then 3
+    when '4' then 4
+    when '5' then 5
+    when '6' then 6
+    when '7' then 7
+    when '8' then 8
+    when '9' then 9
+    when 'a', 'A' then 10
+    when 'b', 'B' then 11
+    when 'c', 'C' then 12
+    when 'd', 'D' then 13
+    when 'e', 'E' then 14
+    when 'f', 'F' then 15
+
 createPairingCode = (token) ->
   sha = crypto.createHash(constants.PAIRING_CODE_ALGORITHM)
   sha.update(JSON.stringify token)
-  sha.digest('hex').substr(0, constants.PAIRING_CODE_LENGTH)
+  hex = sha.digest('hex').substr(0, constants.PAIRING_CODE_LENGTH)
+  total = 0
+  for i in [0...hex.length]
+    total *= 16
+    total += hexValue(hex.charAt(i))
+  total %= constants.PAIRING_CODE_MODULUS
+  pairingCode = total.toString()
+  while pairingCode.length < constants.PAIRING_CODE_LENGTH
+    pairingCode = '0' + pairingCode
+  pairingCode
 
 ###
 # cb(error, {token, user})

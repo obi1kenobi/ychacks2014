@@ -1,0 +1,214 @@
+/* app.css */
+
+body{
+  background-color: #44494F;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.popovers{
+  position: fixed;
+  top: 160px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+}
+.popovers.bounce{
+   -webkit-animation: popoverBounceIn 0.5s 1 ease-out;
+}
+@-webkit-keyframes popoverBounceIn{
+  0%{ -webkit-transform: translateY(0)}
+  30%{ -webkit-transform: translateY(0)}
+  60% { -webkit-transform: translateY(4px);}
+  80% { -webkit-transform: translateY(-2px);;}
+  100% { -webkit-transform: scale(1) translateY(0);}
+}
+#caret{
+  position: fixed;
+  top: 150px;
+  left: 45px;
+  width: 40px;
+}
+.popover{
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background-color: #FFF;
+  box-shadow: 0 4px 8px rgba(0,0,0,1);
+  padding: 25px;
+}
+
+.controlset{
+  display: none;
+}
+.controlset.active{
+  display: block;
+}
+
+
+
+.app_icons{
+  position: fixed;
+  top: 0;
+  left: -webkit-calc(50% - 42px);
+  left: 20px;
+  width: 2000px;
+  height: 150px;
+  padding: 50px 0;
+
+  font-size: 0;
+
+  -webkit-transition: all 0.4s ease-out;
+
+}
+.app_icon{
+  margin: 0;
+  margin: 0 6px;
+  width: 83px;
+  height: 83px;
+  display: inline-block;
+  -webkit-transition: all 0.2s ease-out;
+
+}
+
+.app_icon img{
+  width: 100%;
+  -webkit-transition: all 0.1s ease-out;
+  -webkit-transform: scale(1);
+  
+}
+.app_icon.grow img{
+  -webkit-transform: scale(1.05) translateY(-5px);
+  /*-webkit-animation: growBounce 0.2s 1 ease-out;*/
+}
+/*
+@-webkit-keyframes growBounce{
+  0%{ -webkit-transform: scale(1);}
+  50% { -webkit-transform: scale(1.4);}
+
+  100% { -webkit-transform: scale(1.2);}
+}
+*/
+.app_icon.shrink img{
+
+   -webkit-animation: shrinkBounce 0.4s 1 ease-out;
+
+}
+@-webkit-keyframes shrinkBounce{
+  0%{ -webkit-transform: scale(1.05) translateY(-5px);}
+  25% { -webkit-transform: scale(1) translateY(5px);}
+  50% { -webkit-transform: scale(1) translateY(-2px);;}
+  75% { -webkit-transform: scale(1) translateY(2px);;}
+  100% { -webkit-transform: scale(1) translateY(0);}
+}
+
+.button{
+  /*-webkit-transition: all 0.2s;*/
+  box-shadow: 0 2px 0 #DDD;
+  -webkit-transform: translateY(-1px);
+}
+
+.button.active{
+  -webkit-transform: translateY(0px);
+  border: 1px solid #BBB;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+.button.active img{
+  opacity: 0.5;
+}
+/*
+.button.finished{
+  -webkit-animation: buttonend 0.3s 1 ease-out;
+
+}
+@-webkit-keyframes buttonend{
+  0%{ -webkit-transform: scale(0.98);}
+  60%{ -webkit-transform: scale(1.02);}
+  100% { -webkit-transform: scale(1) translateY(0);}
+}
+
+*/
+
+
+.bigbutton{
+  margin-top: 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.1);
+  height: 190px;
+  padding: 75px 0;
+  text-align: center;
+  background: -webkit-linear-gradient(top, #EEE, #E0E0E0);
+  /*box-shadow: 0 1px 3px rgba(0,0,0,0.1);*/
+
+  
+}
+
+.wide{
+  margin-bottom: 30px;
+  -webkit-transform: translateY(0px);
+  border-radius: 4px;
+  border: 1px solid #DDD;
+  height: 80px;
+  padding: 32px 0;
+  text-align: center;
+  box-shadow: 0 1px 0 #CCC;
+}
+
+.like.button{
+  margin-bottom: 30px;
+  -webkit-transform: translateY(0px);
+  border-radius: 4px;
+  border: 1px solid #DDD;
+  height: 100px;
+  padding: 32px 0;
+  text-align: center;
+  box-shadow: 0 1px 0 #CCC;
+
+  background-color: #3A5999;
+  background-color: #1372DB;
+  /*background-color: white;*/
+  /*background: -webkit-linear-gradient(top, #314C95, #3A5999);*/
+  border: 1px solid #1C3870;
+  box-shadow: 
+    0 1px 0 solid #1C3870,
+    0 2px 3px rgba(0,0,0,0.2);
+
+  /*background: -webkit-linear-gradient(top, #FFF, #EEE);*/
+
+
+  padding: 22px 0;
+}
+.like.button.active{
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
+  background-color: #2D3C63;
+  background: -webkit-linear-gradient(top, #2D3C63, #354775);
+  /*background-color: #D1D9EA;*/
+}
+
+
+.halfbutton.button{
+  -webkit-transform: translateY(0px);
+  display: inline-block;
+  margin-top: 30px;
+  border-radius: 4px;
+  border: 1px solid #DDD;
+  height: 100px;
+  width: -webkit-calc(50% - 18px);
+  padding: 30px 0;
+  padding-left: 28px;
+  text-align: center;
+  box-shadow: 0 1px 0 #CCC;
+}
+.halfbutton + .halfbutton{
+  margin-left: 30px;
+}
+.halfbutton.button.active{
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+
+
+

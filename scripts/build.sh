@@ -16,6 +16,7 @@ echo "Removing existing build..."
 rm -rf ./bin && mkdir ./bin
 cp -r ./src/public ./bin/public
 cp -r ./src/views  ./bin/views
+cp -r ./src/ui     ./bin/ui
 mkdir -p ./bin/lib/client
 cp -r ./src/lib/client/scripts ./bin/lib/client/scripts
 chmod -R +x ./bin/lib/client/scripts

@@ -1,6 +1,6 @@
 {
   "firebase": "ychacks",
-  "public": "./bin/public",
+  "public": "./bin/ui",
   "ignore": [
     "firebase.json",
     "**/.*",
