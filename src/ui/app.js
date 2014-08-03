@@ -39,7 +39,22 @@ $(function() {
       }
 
       var onAppTouchEnd = function($this) {
+        var dict = {
+          0: 'Youtube',
+          1: 'Facebook',
+          2: 'Gmail',
+          3: 'Spotify',
+          4: 'Reddit',
+          5: 'Netflix'
+        };
+
         var icon_index = Number($this.data("icon-id"));
+        console.log(dict[icon_index]);
+        if (dict[icon_index] !== undefined) {
+          console.log("Setting to " + dict[icon_index]);
+          LOGIN.setCurrentApp(dict[icon_index]);
+        }
+        console.log(icon_index);
 
         if (icon_index == current_icon || popover_closed==true){
           $('.popovers').toggleClass('active');
@@ -82,17 +97,35 @@ $(function() {
       });
 
       LOGIN.onCurrentAppChanged(function(name) {
-        var appIconId = {
+        if (name === "UNKNOWN") {
+          $('.popovers').removeClass('active');
+          popover_closed = true;
+          elementSpringTo("#caret", 150, 1550, [50, 10, 2]);
+          $(".app_icons").css({"-webkit-transform": "translateY(0px)"});
+          return;
+        }
+
+        var dict = {
           'Youtube': 0,
           'Facebook': 1,
           'Gmail': 2,
           'Spotify': 3,
           'Reddit': 4,
           'Netflix': 5
-        }[name];
+        };
+
+        var appIconId = dict[name];
+
+        if (appIconId === undefined) {
+          console.log("Couldn't find app");
+          return;
+        }
 
         console.log("Trying to set to " + name);
-        var button = $('div.app_icon[data-icon-id="' + appIconId + '"]');
+        var button = $('div.app_icon[data-icon-id=' + appIconId + ']');
+
+        console.log(button);
+
         onAppTouchStart(button);
         onAppTouchEnd(button);
       });

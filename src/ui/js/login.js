@@ -60,23 +60,23 @@ $(function() {
   };
 
   LOGIN.setCurrentApp = function(name) {
-    sessionRef.child('current_app').set(name);
+    sessionRef.child('context').child('current_app').set(name);
   };
 
   LOGIN.onCurrentAppChanged = function(cb) {
-    sessionRef.child('current_app').on('value', function(snap) {
+    sessionRef.child('context').child('current_app').on('value', function(snap) {
       cb(snap.val());
     });
   };
 
   LOGIN.onAddedRunningApp = function(cb) {
-    sessionRef.child('running_apps').on('child_added', function(snap, prevChild) {
+    sessionRef.child('context').child('running_apps').on('child_added', function(snap, prevChild) {
       cb(snap.name());
     });
   };
 
   LOGIN.onRemovedRunningApp = function(cb) {
-    sessionRef.child('running_apps').on('child_removed', function(snap) {
+    sessionRef.child('context').child('running_apps').on('child_removed', function(snap) {
       cb(snap.name());
     });
   };
