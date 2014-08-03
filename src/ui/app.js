@@ -33,6 +33,11 @@ $(function() {
       });
 
       var onAppTouchStart = function($this) {
+        var icon_index = Number($this.data("icon-id"));
+        if(disabled_apps[icon_index]) {
+          return
+        }
+
         $this.addClass('grow');
         $this.removeClass('shrink');
         $('.popovers').removeClass('bounce');
@@ -49,6 +54,9 @@ $(function() {
         };
 
         var icon_index = Number($this.data("icon-id"));
+        if (disabled_apps[icon_index]) {
+          return
+        }
         console.log(dict[icon_index]);
         if (dict[icon_index] !== undefined) {
           console.log("Setting to " + dict[icon_index]);
@@ -130,19 +138,45 @@ $(function() {
         onAppTouchEnd(button);
       });
 
-      // TODO(ddoucet): everything needs to start as display:none
-      // and then onAdded, we change it to display:block or whatever
+      var disabled_apps = {};
 
-      // TODO(ddoucet): add click handlers for changing current app
-      // TODO(ddoucet): add click handlers to send command
-      var runningApps = [];
+      function disable_app(name) {
+        var dict = {
+          'Youtube': 0,
+          'Facebook': 1,
+          'Gmail': 2,
+          'Spotify': 3,
+          'Reddit': 4,
+          'Netflix': 5
+        };
+        if(disabled_apps[name] == undefined || !disabled_apps[name]) {
+          disabled_apps[name] = true;
+          $('div.app_icon[data-icon-id=' + dict[name] + ']').addClass('grey');
+        }
+      }
+
+      function enable_app(name) {
+        var dict = {
+          'Youtube': 0,
+          'Facebook': 1,
+          'Gmail': 2,
+          'Spotify': 3,
+          'Reddit': 4,
+          'Netflix': 5
+        };
+        if(disabled_apps[name] == undefined || !disabled_apps[name]) {
+          return
+        }
+        disabled_apps[name] = false;
+        $('div.app_icon[data-icon-id=' + dict[name] + ']').removeClass('grey');
+      }
 
       LOGIN.onAddedRunningApp(function(name) {
-        // TODO
+        enable_app(name)
       });
 
       LOGIN.onRemovedRunningApp(function(name) {
-        // TODO0
+        disable_app(name)
       }); 
     }
   });
