@@ -1,8 +1,10 @@
-debug                     = require('debug')
+debug                     = require('debug')('index')
 { firebaseManager }       = require('./firebase')
 client                    = require('./client')
 
 session = "test"
+
+debug("Starting client...")
 
 newEventHandler = (snapshot, prevChild) ->
   client.runScript(snapshot.val())
