@@ -35,10 +35,12 @@ root (/)
   ...
 
 session info
-+-'active_context'
-+-'other_contexts'
-|-+ '-Itgelksjdfds' (push ID)
-| |-+ <context info>
++-'current_app'
+|-+ <app name>
+|
++-'running_apps'
+|-+ <child name>
+|-+ <child name>
 |
 +-'events'
 |-+ '-Itgelksjdfds' (push ID)
