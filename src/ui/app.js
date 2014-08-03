@@ -17,7 +17,6 @@ $(function() {
       var $app_icon = $('.app_icon');
       var $app_icons = $('.app_icons');
 
-
       $('.button').on("touchstart", function(){
         $(this).addClass('active');
         $(this).removeClass('finished');
@@ -58,12 +57,6 @@ $(function() {
           return
         }
 
-        if (dict[icon_index] !== undefined) {
-          console.log("Setting to " + dict[icon_index]);
-          LOGIN.setCurrentApp(dict[icon_index]);
-        }
-        console.log(icon_index);
-
         if (icon_index == current_icon || popover_closed==true){
           $('.popovers').toggleClass('active');
           popover_closed = !popover_closed;
@@ -85,10 +78,13 @@ $(function() {
         elementSpringTo("#caret", caretIndex*95 + 45, 150, [50, 10, 2]);
         $('.popovers').addClass('bounce');
 
-        //setTimeout(function(){
-          $('.controlset').removeClass('active');
-          $('.controlset[data-icon-id="'+icon_index + '"]').addClass('active');
-        //}, 200);
+        $('.controlset').removeClass('active');
+        $('.controlset[data-icon-id="'+icon_index + '"]').addClass('active');
+
+        if (dict[icon_index] !== undefined) {
+          console.log("Setting to " + dict[icon_index]);
+          LOGIN.setCurrentApp(dict[icon_index]);
+        }
       }
 
       $app_icon.on("touchstart", function() {
@@ -124,12 +120,16 @@ $(function() {
 
         var appIconId = dict[name];
 
-        if (appIconId === current_icon) {
-          return;
-        }
+        console.log(current_icon);
+        console.log(appIconId);
 
         if (appIconId === undefined) {
           console.log("Couldn't find app");
+          return;
+        }
+
+        if (appIconId === current_icon) {
+          console.log("Skipping on touch");
           return;
         }
 
