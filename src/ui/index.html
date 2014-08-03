@@ -32,8 +32,11 @@ $('.submit').on("touchstart", function(){
     $(this).addClass('active');
 });
 
-$('.submit').on("touchend click", function(){
+$('.submit').on("touchend", function(){
   $(this).removeClass('active');
+});
+
+$('.submit').on("click", function(){
   LOGIN.pair($('#pass').val(), function(err, success) {
     if (success) {
       window.location = "/app.html";
