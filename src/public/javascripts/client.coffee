@@ -34,4 +34,5 @@ for command in data
         .append(
           $('<a>')
             .text(command.type + ': ' + command.name)
+            .attr('href', '#')
             .click(make_command_sender(command))))
