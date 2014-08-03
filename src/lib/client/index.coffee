@@ -11,7 +11,7 @@ Client =
         if stderr?.length > 0
           logError "Script #{type}-#{name} stderr: #{stderr}"
         else
-          logError "Running script #{type}-#{name}, got an error #{Error.toString()}"
+          logError "Running script #{type}-#{name}, got an error #{err.toString()}"
         return cb?(err)
       logDebug "Script #{type}-#{name} finished."
       return cb?(null)
