@@ -35,3 +35,5 @@ child_process.execFile media_watcher_file, (err, stdin, stdout) ->
   debug("Media watcher stdout: #{stdout}") if stdout?
 
 # Retrieve the files open when the client starts
+get_all_directory = __dirname + "/client/scripts/"
+child_process.execFile get_all_directory + "get_all_windows.sh", (err, stdin, stdout) ->
