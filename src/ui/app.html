@@ -4,9 +4,9 @@
   <title>Magic Remote Thing</title>
 
   <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
-  <script src="js/login.js"></script>
-  <script src="js/underscore.js"></script>
   <script src="js/jquery.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/login.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -48,14 +48,14 @@
   <div class="popover">
     <div class="controlset active" data-icon-id="0">
 
-        <div class="bigbutton button">
+        <div class="app-button bigbutton button" data-type="youtube" command="playpause">
           <img width=136 src="img/play_pause.png"/>
         </div>
 
-        <div class="halfbutton button">
+        <div class="app-button halfbutton button" data-type="media" command="volume_down">
           <img width=62 src="img/volume_down.png"/>
         </div>
-        <div class="halfbutton button">
+        <div class="app-button halfbutton button" data-type="media" command="volume_up">
           <img width=62 src="img/volume_up.png"/>
         </div>
 
@@ -63,17 +63,17 @@
 
     <div class="controlset" data-icon-id="1">
 
-        <div class="wide button">
+        <div class="app-button wide button" data-type="lists" command="up">
           <img width=22 src="img/up.png"/>
         </div>
  
 
-        <div class="like button">
-          <img height=48 src="img/like2.png"/>   
+        <div class="app-button like button">
+          <img height=48 src="img/like2.png" data-type="facebook" command="like"/>   
         </div>
 
  
-        <div class="wide button">
+        <div class="app-button wide button" data-type="lists" command="down">
           <img width=22 src="img/down.png"/>
         </div>
        
@@ -82,24 +82,24 @@
     <div class="controlset" data-icon-id="2">
 
       <div class="row">
-        <div class="minibutton dark button">
+        <div class="app-button minibutton dark button" data-type="lists" command="up">
           <img width=22 src="img/up.png"/>
         </div>
       </div>
 
       <div class="row">
-        <div class="minibutton dark button">
-          <img style="top: -3px" width=32 src="img/back.png"/>
+        <div class="app-button minibutton dark button">
+          <img style="top: -3px" width=32 src="img/back.png" data-type="lists" command="back"/>
         </div>
-        <div class="minibutton dark button">
+        <div class="app-button minibutton dark button" data-type="lists" command="open">
            <img style="top: -10px" width=32 src="img/open.png"/>
         </div>
-        <div class="minibutton button">
-          <img style="top: -12px" width=48 src="img/archive.png"/>
+        <div class="app-button minibutton button">
+          <img style="top: -12px" width=48 src="img/archive.png" data-type="gmail" command="archive"/>
         </div>
       </div>
       <div class="row">
-        <div class="minibutton dark button">
+        <div class="app-button minibutton dark button" data-type="lists" command="down">
           <img width=22 src="img/down.png"/>
         </div>
       </div>
@@ -114,14 +114,14 @@
     <div class="controlset" data-icon-id="3">
 
         
-        <div class="bigbutton button">
+        <div class="app-button bigbutton button" data-type="spotify" command="next">
           <img width=72 src="img/skip.png"/>
         </div>
 
-        <div class="halfbutton normal button">
+        <div class="app-button halfbutton normal button" data-type="spotify" command="play">
           <img style="left: -2px" height=28 src="img/mini_play.png"/>
         </div>
-        <div class="halfbutton normal button">
+        <div class="app-button halfbutton normal button" data-type="spotify" command="pause">
           <img style="left: -4px" height=28 src="img/mini_pause.png"/>
         </div>
        
@@ -130,36 +130,36 @@
     <div class="controlset" data-icon-id="4">
 
       <div class="row">
-        <div class="minibutton button filler">
+        <div class="app-button minibutton button filler" >
           <img width=22 src="img/up.png"/>
         </div>
-        <div class="minibutton dark button">
+        <div class="app-button minibutton dark button" data-type="lists" command="up">
           <img width=22 src="img/up.png"/>
         </div>
-        <div class="minibutton button">
+        <div class="app-button minibutton button" data-type="reddit" command="upvote">
           <img style="top: -7px;left: -2px;" width=26 src="img/upvote.png"/>
         </div>
       </div>
 
       <div class="row">
-        <div class="minibutton dark button">
+        <div class="app-button minibutton dark button" data-type="lists" command="back">
           <img style="top: -3px" width=32 src="img/back.png"/>
         </div>
-        <div class="minibutton dark button">
+        <div class="app-button minibutton dark button" data-type="lists" command="open">
            <img style="top: -10px" width=32 src="img/open.png"/>
         </div>
-        <div class="minibutton filler button">
+        <div class="app-button minibutton filler button">
           <img style="top: -12px" width=48 src="img/archive.png"/>
         </div>
       </div>
       <div class="row">
-        <div class="minibutton filler button">
+        <div class="app-button minibutton filler button">
           <img width=22 src="img/down.png"/>
         </div>
-        <div class="minibutton dark button">
+        <div class="app-button minibutton dark button" data-type="lists" command="down">
           <img width=22 src="img/down.png"/>
         </div>
-        <div class="minibutton  button">
+        <div class="app-button minibutton  button" data-type="reddit" command="downvote">
           <img style="top: -3px;left: -2px;" width=26 src="img/downvote.png"/>
         </div>
       </div>
@@ -173,14 +173,14 @@
 
     <div class="controlset active" data-icon-id="5">
 
-        <div class="bigbutton button">
+        <div class="app-button bigbutton button" data-type="netflix" command="playpause">
           <img width=136 src="img/play_pause.png"/>
         </div>
 
-        <div class="halfbutton button">
+        <div class="app-button halfbutton button" data-type="media" command="volume_down">
           <img width=62 src="img/volume_down.png"/>
         </div>
-        <div class="halfbutton button">
+        <div class="app-button halfbutton button" data-type="media" command="volume_up">
           <img width=62 src="img/volume_up.png"/>
         </div>
 

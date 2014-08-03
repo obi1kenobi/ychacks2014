@@ -44,6 +44,11 @@ startListening = () ->
       current_app = snapshot.val()
       if current_app == 'UNKNOWN'
         return
+
+      if current_app not of all_apps
+        debug "Could not find current app (#{current_app}) in all apps"
+        return
+
       all_apps = apps.val()
       if all_apps[current_app] != 1
         open_chrome_tab(all_apps[current_app].window_index, all_apps[current_app].tab_index)
