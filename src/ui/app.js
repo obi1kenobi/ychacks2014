@@ -7,7 +7,7 @@ var popover_closed = true;
 $(function() {
 
   LOGIN.auth(function(err, uid) {
-    if (!err) {
+    if (err) {
       throw err;
     }
 
