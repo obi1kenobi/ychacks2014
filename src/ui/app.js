@@ -4,6 +4,17 @@
 var current_icon = 0;
 var popover_closed = true;
 
+var apps = [
+  "youtube",
+  "facebook",
+  "gmail",
+  "spotify",
+  "reddit",
+  "netflix"
+
+
+]
+
 $(function() {
 
   LOGIN.auth(function(err, uid) {

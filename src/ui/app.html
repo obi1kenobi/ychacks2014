@@ -29,9 +29,9 @@
   <div class="app_icon" data-icon-id="1">
     <img src="img/facebook_icon.png"/></div>
   <div class="app_icon" data-icon-id="2">
-    <img src="img/gmail_icon.png"/></div>
-  <div class="app_icon" data-icon-id="3">
     <img src="img/spotify.png"/></div>
+  <div class="app_icon" data-icon-id="3">
+    <img src="img/gmail_icon.png"/></div>
   <div class="app_icon" data-icon-id="4">
     <img src="img/reddit.png"/></div>
   <div class="app_icon" data-icon-id="5">
@@ -46,7 +46,7 @@
 
 <div class="popovers">
   <div class="popover">
-    <div class="controlset active" data-icon-id="0">
+    <div class="controlset deactivate" data-icon-id="0">
 
         <div class="app-button bigbutton button" data-type="youtube" command="playpause">
           <img width=136 src="img/play_pause.png"/>
@@ -61,7 +61,7 @@
 
     </div>
 
-    <div class="controlset" data-icon-id="1">
+    <div class="controlset deactivate" data-icon-id="1">
 
         <div class="app-button wide button" data-type="lists" command="up">
           <img width=22 src="img/up.png"/>
@@ -79,7 +79,23 @@
        
     </div>
 
-    <div class="controlset" data-icon-id="2">
+     <div class="controlset deactivate" data-icon-id="2">
+
+        
+        <div class="bigbutton button">
+          <img width=72 src="img/skip.png"/>
+        </div>
+
+        <div class="halfbutton normal button">
+          <img style="left: -2px" height=28 src="img/mini_play.png"/>
+        </div>
+        <div class="halfbutton normal button">
+          <img style="left: -4px" height=28 src="img/mini_pause.png"/>
+        </div>
+       
+    </div>
+
+    <div class="controlset deactivate" data-icon-id="3">
 
       <div class="row">
         <div class="app-button minibutton dark button" data-type="lists" command="up">
@@ -111,9 +127,7 @@
        
     </div>
 
-    <div class="controlset" data-icon-id="3">
-
-        
+   
         <div class="app-button bigbutton button" data-type="spotify" command="next">
           <img width=72 src="img/skip.png"/>
         </div>
@@ -127,7 +141,7 @@
        
     </div>
 
-    <div class="controlset" data-icon-id="4">
+    <div class="controlset deactivate" data-icon-id="4">
 
       <div class="row">
         <div class="app-button minibutton button filler" >
@@ -171,7 +185,7 @@
        
     </div>
 
-    <div class="controlset active" data-icon-id="5">
+    <div class="controlset deactivate" data-icon-id="5">
 
         <div class="app-button bigbutton button" data-type="netflix" command="playpause">
           <img width=136 src="img/play_pause.png"/>
