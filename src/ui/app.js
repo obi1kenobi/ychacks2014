@@ -34,14 +34,14 @@ $(function() {
 
       var onAppTouchStart = function($this) {
         var icon_index = Number($this.data("icon-id"));
-        if(disabled_apps[icon_index]) {
+        if($this.hasClass('grey')) {
           return
         }
 
         $this.addClass('grow');
         $this.removeClass('shrink');
         $('.popovers').removeClass('bounce');
-      }
+      };
 
       var onAppTouchEnd = function($this) {
         var dict = {
@@ -54,7 +54,7 @@ $(function() {
         };
 
         var icon_index = Number($this.data("icon-id"));
-        if (disabled_apps[icon_index]) {
+        if ($this.hasClass('grey')) {
           return
         }
         console.log(dict[icon_index]);
