@@ -33,7 +33,7 @@ eraseSessionIfExists = (cb) ->
 startListening = () ->
   ref = firebaseManager.eventsRef(session)
   ref.on 'child_added', (snapshot, prevChild) ->
-    client.runScript(snapshot.val())
+    client.scriptRunner.runScript(snapshot.val())
     ref.child(snapshot.name()).set(null)
 
   @context_ref = firebaseManager.contextRef(session)
@@ -45,11 +45,12 @@ startListening = () ->
       if current_app == 'UNKNOWN'
         return
 
+      all_apps = apps.val()
+
       if current_app not of all_apps
         debug "Could not find current app (#{current_app}) in all apps"
         return
 
-      all_apps = apps.val()
       if all_apps[current_app] != 1
         open_chrome_tab(all_apps[current_app].window_index, all_apps[current_app].tab_index)
       else

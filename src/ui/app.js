@@ -24,7 +24,7 @@ $(function() {
 
         var type = $(this).attr('data-type');
         var command = $(this).attr('data-command');
-        console.log('type: ' + type + '; command: ' + command);
+        LOGIN.executeCommand(type, command);
       });
 
       $('.button').on("touchend", function(){
@@ -32,15 +32,29 @@ $(function() {
         $(this).addClass('finished');
       });
 
-      $app_icon.on("touchstart", function(){
-        $(this).addClass('grow');
-        $(this).removeClass('shrink');
+      var onAppTouchStart = function($this) {
+        $this.addClass('grow');
+        $this.removeClass('shrink');
         $('.popovers').removeClass('bounce');
-      });
+      }
 
-      $app_icon.on("touchend", function(){
+      var onAppTouchEnd = function($this) {
+        var dict = {
+          0: 'Youtube',
+          1: 'Facebook',
+          2: 'Gmail',
+          3: 'Spotify',
+          4: 'Reddit',
+          5: 'Netflix'
+        };
 
-        var icon_index = Number($(this).data("icon-id"));
+        var icon_index = Number($this.data("icon-id"));
+        console.log(dict[icon_index]);
+        if (dict[icon_index] !== undefined) {
+          console.log("Setting to " + dict[icon_index]);
+          LOGIN.setCurrentApp(dict[icon_index]);
+        }
+        console.log(icon_index);
 
         if (icon_index == current_icon || popover_closed==true){
           $('.popovers').toggleClass('active');
@@ -56,8 +70,8 @@ $(function() {
         }
         current_icon = icon_index;
 
-        $(this).addClass('shrink');
-        $(this).removeClass('grow');
+        $this.addClass('shrink');
+        $this.removeClass('grow');
 
         var caretIndex =  (icon_index % 3);
         elementSpringTo("#caret", caretIndex*95 + 45, 150, [50, 10, 2]);
@@ -67,11 +81,53 @@ $(function() {
           $('.controlset').removeClass('active');
           $('.controlset[data-icon-id="'+icon_index + '"]').addClass('active');
         //}, 200);
+      }
+
+      $app_icon.on("touchstart", function() {
+        onAppTouchStart($(this));
+      });
+
+      $app_icon.on("touchend", function() {
+        onAppTouchEnd($(this));
       });
 
       // Register callbacks
       LOGIN.onServerDisconnect(function() {
         window.location = '/index.html';
+      });
+
+      LOGIN.onCurrentAppChanged(function(name) {
+        if (name === "UNKNOWN") {
+          $('.popovers').removeClass('active');
+          popover_closed = true;
+          elementSpringTo("#caret", 150, 1550, [50, 10, 2]);
+          $(".app_icons").css({"-webkit-transform": "translateY(0px)"});
+          return;
+        }
+
+        var dict = {
+          'Youtube': 0,
+          'Facebook': 1,
+          'Gmail': 2,
+          'Spotify': 3,
+          'Reddit': 4,
+          'Netflix': 5
+        };
+
+        var appIconId = dict[name];
+
+        if (appIconId === undefined) {
+          console.log("Couldn't find app");
+          return;
+        }
+
+        console.log("Trying to set to " + name);
+        var button = $('div.app_icon[data-icon-id=' + appIconId + ']');
+
+        console.log(button);
+
+        onAppTouchStart(button);
+        onAppTouchEnd(button);
       });
 
       // TODO(ddoucet): everything needs to start as display:none
