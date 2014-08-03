@@ -1,4 +1,5 @@
 #! /bin/bash
-osascript -e 'tell application "System Events"
-    key code 73
-end'
+touch voldown
+while [ -e 'voldown' ]; do
+    sleep 0.01
+done

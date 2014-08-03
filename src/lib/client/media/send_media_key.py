@@ -7,7 +7,12 @@
  
 # import Quartz
 from Quartz import NSEvent, CGEventPost
+import os
 import sys
+import time
+
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
  
 # NSEvent.h
 NSSystemDefined = 14
@@ -23,6 +28,16 @@ NX_KEYTYPE_REWIND = 20
  
 supportedcmds = {'playpause': NX_KEYTYPE_PLAY, 'next': NX_KEYTYPE_NEXT, 'prev': NX_KEYTYPE_PREVIOUS, 'volup': NX_KEYTYPE_SOUND_UP, 'voldown': NX_KEYTYPE_SOUND_DOWN}
  
+class OnCreatedEventHandler(FileSystemEventHandler):
+    def on_created(self, event):
+        command = event.src_path[2:]
+        if command in supportedcmds:
+            HIDPostAuxKey(supportedcmds[command])
+            try:
+                os.remove(event.src_path)
+            except OSError:
+
+
 def HIDPostAuxKey(key):
     def doKey(down):
         ev = NSEvent.otherEventWithType_location_modifierFlags_timestamp_windowNumber_context_subtype_data1_data2_(
@@ -42,10 +57,13 @@ def HIDPostAuxKey(key):
     doKey(False)
  
 if __name__ == "__main__":
+    event_handler = OnCreatedEventHandler()
+    observer = Observer()
+    observer.schedule(event_handler, './', recursive=False)
+    observer.start()
     try:
-        command = sys.argv[1]
-        assert(command in supportedcmds)
-        HIDPostAuxKey(supportedcmds[command])
-    except (IndexError, AssertionError):
-        print "Usage: %s command" % (sys.argv[0],)
-        print "\tSupported commands are %s" % supportedcmds.keys()
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()
