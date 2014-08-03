@@ -3,6 +3,7 @@
 <head>
   <title>Magic Remote Auth Thing</title>
 
+  <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
   <script src="js/underscore.js"></script>
   <script src="js/jquery.js"></script>
   <script src="js/login.js"></script>
@@ -35,7 +36,7 @@ $('.submit').on("touchend click", function(){
   $(this).removeClass('active');
   LOGIN.pair($('#pass').val(), function(err, success) {
     if (success) {
-      window.location = "/index.html";
+      window.location = "/app.html";
     } else {
       alert("Wrong pairing code, try again.");
     }
