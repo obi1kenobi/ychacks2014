@@ -46,7 +46,7 @@ $(function() {
   };
 
   LOGIN.executeCommand = function(type, name) {
-    sessionRef.child('events').push({type, name});
+    sessionRef.child('events').push({type: type, name: name});
   };
 
   LOGIN.onServerDisconnect = function(cb) {
