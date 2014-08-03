@@ -6,7 +6,7 @@ var popover_closed = true;
 
 $(function() {
 
-  LOGIN.auth(sessionStorage.firebaseToken, function(err, uid) {
+  LOGIN.auth(function(err, uid) {
     if (!err) {
       throw err;
     }
