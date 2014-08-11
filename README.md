@@ -1,7 +1,7 @@
 Touch
 ===========
 
-Context aware remote controls for your Mac. This project was a [submission for YC Hacks 2014](http://challengepost.com/software/touch).
+Context aware remote controls for your Mac. This project was a [submission for YC Hacks 2014](http://challengepost.com/software/touch) and you can read more about it on [Ryhan's Blog](http://ryhan.org/post/94409414906/as-part-of-yc-hacks-this-past-weekend-i-worked-on).
 The team for this project included [Predrag Gruevski](https://github.com/obi1kenobi), [David Wetterau](https://github.com/dwetterau), [Ryhan Hassan](https://github.com/ryhan), and [Damon Doucet](https://github.com/damondoucet).
 
 # Installation
